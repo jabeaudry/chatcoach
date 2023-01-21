@@ -4,3 +4,11 @@
 .landmark-grid-container {
   display: none !important;
 }
+
+.button-record {
+  background-color: #06d6a0;
+}
+
+.button-recording {
+  background-color: #ef476f;
+}
