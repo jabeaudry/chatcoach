@@ -1,12 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Video from './components/VideoCaptor'
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import VideoContainer from "./components/VideoContainer";
 
 function App() {
   return (
     <div className="App">
-		<Video />
+      <VideoContainer />
     </div>
   );
 }
