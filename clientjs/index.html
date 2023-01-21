@@ -44,7 +44,7 @@
 
 			// Only overwrite existing pixels.
 			canvasCtx.globalCompositeOperation = 'source-in';
-			canvasCtx.fillStyle = '#00FF00';
+			canvasCtx.fillStyle = 'rgba(255,255,255,0)';
 			canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
 
 			// Only overwrite missing pixels.
@@ -54,9 +54,9 @@
 
 			canvasCtx.globalCompositeOperation = 'source-over';
 			drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-				{ color: '#00FF00', lineWidth: 4 });
+				{ color: 'rgba(237,230,242,0.7)', lineWidth: 3 });
 			drawLandmarks(canvasCtx, results.poseLandmarks,
-				{ color: '#FF0000', lineWidth: 2 });
+				{ color: 'rgba(237,230,242,0.4)', lineWidth: 1 });
 			canvasCtx.restore();
 			grid.updateLandmarks(results.poseWorldLandmarks);
 			console.log(grid)
