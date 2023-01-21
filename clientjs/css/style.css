@@ -1,5 +1,26 @@
+html {
+  background-color: #ede6f2;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+
+h1 {
+  color: #374a67;
+  font-family: "Montserrat", sans-serif;
+}
 .input_video {
   display: none !important;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.output_canva {
+  margin: auto;
 }
 .landmark-grid-container {
   display: none !important;

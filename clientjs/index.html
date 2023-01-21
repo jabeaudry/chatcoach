@@ -4,6 +4,9 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"
 		crossorigin="anonymous"></script>
@@ -16,8 +19,9 @@
 
 <body>
 	<div class="container">
+		<h1>Title</h1>
 		<video class="input_video"></video>
-		<canvas class="output_canvas" width="1280px" height="720px"></canvas>
+		<canvas class="output_canvas" width="680px" height="382.5px"></canvas>
 		<div class="landmark-grid-container"></div>
 	</div>
 	<script type="module">
@@ -54,8 +58,8 @@
 			drawLandmarks(canvasCtx, results.poseLandmarks,
 				{ color: '#FF0000', lineWidth: 2 });
 			canvasCtx.restore();
-
 			grid.updateLandmarks(results.poseWorldLandmarks);
+			console.log(grid)
 		}
 
 		const pose = new Pose({
@@ -77,8 +81,8 @@
 			onFrame: async () => {
 				await pose.send({ image: videoElement });
 			},
-			width: 1280,
-			height: 720
+			width: 720,
+			height: 405
 		});
 		camera.start();
 	</script>
