@@ -61,6 +61,13 @@ html {
   padding-top: 15px;
 }
 
+.chart2 {
+  width: 350px;
+  height: 350px;
+  margin: auto;
+  padding-top: 15px;
+}
+
 /*button*/
 button {
   margin: 50px;
