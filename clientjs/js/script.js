@@ -11,6 +11,14 @@ if (window.location.pathname == '/clientjs/index.html') {
 	const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
 	const grid = new LandmarkGrid(landmarkContainer);
 
+	//voice
+	const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+	const recognition = new SpeechRecognition();
+	let listening = false;
+	let wordCounter = 0;
+	let likeCounterWords = 0;
+	let allWords = "";
+
 	// Data variables
 	const landmarksToFilter = [3, 6, 7, 8, 11, 12, 13, 14, 15, 16] // Landmarks we want to extract each second
 	const indexToLocation = {
@@ -170,6 +178,11 @@ if (window.location.pathname == '/clientjs/index.html') {
 		return headPosition;
 	}
 
+	//calculate amount of times i say like
+	// function calculateLike(){
+	// 	for (let i = 0; i < recognition.length)
+	// }
+
 	// Determine the eye position vertically
 	function eyeVerticalDelta(filteredLandmarks) {
 		const leftEyeBaselineDelta = baselineLandmarks[indexToLocation.leftEyeOuter].y - filteredLandmarks[indexToLocation.leftEyeOuter].y;
@@ -184,20 +197,51 @@ if (window.location.pathname == '/clientjs/index.html') {
 		return headPosition;
 	}
 
+	const onResult = event => {
+		for (const res of event.results) {
+			for (const [key, value] of Object.entries(res)) {
+				console.log(value)
+				let temp = allWords.concat(" " + value.transcript);
+				allWords = temp;
+			}
+
+		}
+	}
+
 	// Function to handle logic onclick of start/stop button
 	function clickRecording() {
 		const slider = document.getElementById("slider");
 		if (startedRecording) {
 			//Green
+			listening = true;
 			slider.className = "slide";
 			slider.innerHTML = "Start";
+			let temp = allWords.split(' ');
+			for (let i = 0; i < temp.length; i++) {
+				if (temp[i] == 'like') {
+					likeCounterWords++;
+				}
+				else {
+					wordCounter++;
+				}
+			}
+			sessionStorage.setItem("totalWords", wordCounter);
+			sessionStorage.setItem('likeWords', likeCounterWords);
+			console.log(wordCounter);
+			console.log(likeCounterWords);
+			recognition.stop();
+			//calculateLike(recognition);
 			setTimeout(function () {
 				location.href = './pages/results1.html';
-			}, 1000);
+			}, 10000);
 		} else {
 			//Red
 			slider.className = "slide2";
 			slider.innerHTML = "Stop";
+			recognition.continuous = true;
+			recognition.start();
+			recognition.addEventListener("result", onResult);
+
 		}
 		startedRecording = !startedRecording;
 	}
@@ -316,6 +360,50 @@ else if (window.location.pathname == '/clientjs/pages/results3.html') {
 					ticks: {
 						display: false //this will remove only the label
 					}
+				}
+			},
+			plugins: {
+				filler: {
+					propagate: false
+				},
+				legend: {
+					display: false
+				},
+				customCanvasBackgroundColor: {
+					color: '#ede6f2',
+				},
+				interaction: {
+					intersect: false,
+				},
+			}
+		}
+	});
+}
+
+else if (window.location.pathname == '/clientjs/pages/results4.html') {
+	const ctx4 = document.getElementById('chart4');
+	new Chart(ctx4, {
+		type: 'pie',
+		data: {
+			labels: ['Like', 'Everything'],
+			datasets: [{
+				label: 'Words',
+				backgroundColor: [
+					'#731DD8',
+					'#FA8889'
+				],
+				data: [sessionStorage.getItem('totalWords'), sessionStorage.getItem('likeWords')],
+				//data: [-1, 1, 1, 1, -1, -1, 1],
+				borderWidth: 1,
+
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+
+					display: false //this will remove only the label
+
 				}
 			},
 			plugins: {

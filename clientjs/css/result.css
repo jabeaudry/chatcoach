@@ -84,6 +84,20 @@ html {
   padding-top: 15px;
 }
 
+.chart4 {
+  width: 700px;
+  height: 250px;
+  margin: auto;
+  padding-top: 15px;
+}
+
+#chart4 {
+  width: 700px;
+  height: 250px;
+  margin: auto;
+  padding-top: 15px;
+}
+
 /*button*/
 button {
   margin: 50px;
