@@ -327,7 +327,14 @@ else if (window.location.pathname == '/clientjs/pages/results1.html') {
 		},
 		options: {
 			scales: {
-				display: false
+				x:{
+					grid:{
+						offset: true
+					}
+				},
+				y:{
+					beginAtZero: true
+				}
 
 			},
 			plugins: {
@@ -478,7 +485,14 @@ else if (window.location.pathname == '/clientjs/pages/results5.html') {
 		},
 		options: {
 			scales: {
-				display: false
+				x:{
+					grid:{
+						offset: true
+					}
+				},
+				y:{
+					beginAtZero: true
+				}
 
 			},
 			plugins: {

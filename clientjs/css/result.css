@@ -37,59 +37,42 @@ html {
 /*Final results*/
 
 .quad_container {
-  display: grid;
-  grid-template-columns: auto auto;
-  padding: 10px;
-}
-.quad {
-  padding: 20px;
-  font-size: 26px;
   text-align: center;
+  font-size: 23px;
+  height: 94vh;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-family: "Work Sans", sans-serif;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .chart1_final {
-  width: 245px;
+  width: 40vw;
+  height: 100px;
   margin: auto;
   padding-top: 15px;
 }
 
-.chart1 {
-  width: 180px;
+.chart2_final {
+  width: 40vw;
+  height: 100px;
   margin: auto;
   padding-top: 15px;
 }
 
-.chart2 {
-  width: 350px;
-  height: 350px;
+.chart3_final {
+  width: 40vw;
+  height: 100px;
   margin: auto;
   padding-top: 15px;
 }
 
-.chart3 {
-  width: 700px;
-  height: 250px;
-  margin: auto;
-  padding-top: 15px;
-}
-
-#chart3 {
-  width: 700px;
-  height: 250px;
-  margin: auto;
-  padding-top: 15px;
-}
-
-.chart4 {
-  width: 700px;
-  height: 250px;
-  margin: auto;
-  padding-top: 15px;
-}
-
-#chart4 {
-  width: 700px;
-  height: 250px;
+.chart4_final {
+  width: 40vw;
+  height: 100px;
   margin: auto;
   padding-top: 15px;
 }
@@ -123,7 +106,20 @@ html {
   padding-top: 15px;
 }
 
+#chart1 {
+  width: 180px;
+  margin: auto;
+  padding-top: 15px;
+}
+
 .chart2 {
+  width: 350px;
+  height: 350px;
+  margin: auto;
+  padding-top: 15px;
+}
+
+#chart2 {
   width: 350px;
   height: 350px;
   margin: auto;
