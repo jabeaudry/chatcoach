@@ -1,6 +1,7 @@
 // global variables
 let horizontalEyesPosition = { 'left': 0, 'center': 0, 'right': 0 };
 const verticalEyesPositionsInTime = [];
+let gestures = { 'crossed': 0, 'uncrossed': 0 };
 
 if (window.location.pathname == '/clientjs/index.html') {
 	// Video display variables
@@ -91,7 +92,6 @@ if (window.location.pathname == '/clientjs/index.html') {
 					case ('center'):
 						horizontalEyesPosition['center'] += 1;
 						sessionStorage.setItem("eyesCenter", horizontalEyesPosition['center']);
-						console.log(sessionStorage.getItem("eyesCenter"))
 						break;
 					case ('right'):
 						horizontalEyesPosition['right'] += 1;
@@ -100,11 +100,19 @@ if (window.location.pathname == '/clientjs/index.html') {
 				}
 
 				// Eye vertical data
-				verticalEyesPositionsInTime.push(eyeVerticalDelta);
+				verticalEyesPositionsInTime.push(eyeVerticalDelta(filteredLandmarks));
 				sessionStorage.setItem("verticalEyesPositionsInTime", verticalEyesPositionsInTime);
 
 				// arms crossed
-				armCrossed(filteredLandmarks);
+				const gesture = armCrossed(filteredLandmarks);
+				if (gesture == 'crossed') {
+					gestures[gesture] += 1;
+					sessionStorage.setItem("crossed", gestures[gesture]);
+				} else {
+					gestures[gesture] += 1;
+					sessionStorage.setItem("uncrossed", gestures[gesture]);
+				}
+				
 
 				// posture
 				posture(filteredLandmarks);
@@ -128,23 +136,17 @@ if (window.location.pathname == '/clientjs/index.html') {
 
 	// Determine if arms are crossed
 	function armCrossed(filteredLandmarks) {
+		const radius = 0.03;
 		const leftElbowRightWristDist = (filteredLandmarks[indexToLocation.leftElbow].x - filteredLandmarks[indexToLocation.rightWrist].x) ** 2 + 
 			(filteredLandmarks[indexToLocation.leftElbow].y - filteredLandmarks[indexToLocation.rightWrist].y) ** 2;
 		const rightElbowLeftWristDist = (filteredLandmarks[indexToLocation.rightElbow].x - filteredLandmarks[indexToLocation.leftWrist].x) ** 2 + 
 			(filteredLandmarks[indexToLocation.rightElbow].y - filteredLandmarks[indexToLocation.leftWrist].y) ** 2;
-		// console.log("leftElbowRightWristDist")
-		// console.log(leftElbowRightWristDist)
-		// console.log("leftElbow visibility")
-		// console.log(filteredLandmarks[indexToLocation.leftElbow].visibility)
-		// console.log("rightWrist visibility")
-		// console.log(filteredLandmarks[indexToLocation.rightWrist].visibility)
 
-		// console.log("rightElbowRightWristDist")
-		// console.log(rightElbowLeftWristDist)
-		// console.log("rightElbow visibility")
-		// console.log(filteredLandmarks[indexToLocation.rightElbow].visibility)
-		// console.log("leftWrist visibility")
-		// console.log(filteredLandmarks[indexToLocation.leftWrist].visibility)
+		armPosition = "uncrossed"
+		if (leftElbowRightWristDist < radius || rightElbowLeftWristDist < radius)
+			armPosition = "crossed"
+			
+		return armPosition
 	}
 
 
@@ -175,7 +177,6 @@ if (window.location.pathname == '/clientjs/index.html') {
 
 		let headPosition = 1; // 1 = up
 		if (leftEyeBaselineDelta < -0.008 && rightEyeBaselineDelta < -0.008)
-			console.log("down");
 			headPosition = -1; // -1 = down
 
 		return headPosition;
@@ -188,7 +189,6 @@ if (window.location.pathname == '/clientjs/index.html') {
 			//Green
 			slider.className = "slide";
 			slider.innerHTML = "Start";
-			console.log(savedData)
 		} else {
 			//Red
 			slider.className = "slide2";
@@ -224,7 +224,6 @@ if (window.location.pathname == '/clientjs/index.html') {
 else if (window.location.pathname == '/clientjs/pages/results1.html') {
 	// chart js
 	const ctx1 = document.getElementById('chart1');
-	console.log(sessionStorage.getItem("eyesCenter"));
 	new Chart(ctx1, {
 		type: 'doughnut',
 		data: {
@@ -259,14 +258,14 @@ else if (window.location.pathname == '/clientjs/pages/results1.html') {
 		new Chart(ctx2, {
 			type: 'bar',
 			data: {
-				labels: ['Crossed', 'Gestures'],
+				labels: ['Crossed', 'Uncrossed'],
 				datasets: [{
-					label: 'Percentage',
+					label: 'Time',
 					backgroundColor: [
 						'#731DD8',
 						'#FA8889'
 					],
-					data: [90, 10],
+					data: [sessionStorage.getItem("crossed"), sessionStorage.getItem("uncrossed")],
 					borderWidth: 1
 				}]
 			},
