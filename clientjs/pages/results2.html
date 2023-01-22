@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../css/result.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200,300&display=swap" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+	<div class="result-container">
+		<div>
+			<h1 class="result-header result-text">When presenting, your nonverbal <br> speaks louder than words</h1>
+			<h1 class="result-header result-text-secondary">While having your arms <span style="color:#731DD8;">
+					crossed</span>, you're spending less time using <span style="color:#FA8889">gestures</span>.
+			</h1>
+		</div>
+		<div class="chart2">
+			<canvas id="chart2"></canvas>
+		</div>
+		<div class="button-container">
+			<a href="../pages/results1.html" style="text-decoration : none;">
+				<button type="button" class="slide">
+					<i class="icon-arrow-left"></i>
+					<div>Previous</div>
+				</button>
+			</a>
+			<a href="../pages/results3.html" style="text-decoration : none;">
+				<button type="button" class="slide">
+					<div>Next</div>
+					<i class="icon-arrow-right"></i>
+				</button>
+			</a>
+		</div>
+	</div>
+	<script>
+		const ctx2 = document.getElementById('chart2');
+
+		new Chart(ctx2, {
+			type: 'bar',
+			data: {
+				labels: ['Crossed', 'Gestures'],
+				datasets: [{
+					label: 'Percentage',
+					backgroundColor: [
+						'#731DD8',
+						'#FA8889'
+					],
+					data: [90, 10],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					display: false
+
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					customCanvasBackgroundColor: {
+						color: '#ede6f2',
+					}
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>
