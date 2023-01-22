@@ -1,5 +1,6 @@
 // global variables
-let eyesPosition = { 'left': 0, 'center': 0, 'right': 0 , 'up': 0, 'down': 0};
+let horizontalEyesPosition = { 'left': 0, 'center': 0, 'right': 0 };
+const verticalEyesPositionsInTime = [];
 
 if (window.location.pathname == '/clientjs/index.html') {
 	// Video display variables
@@ -84,31 +85,23 @@ if (window.location.pathname == '/clientjs/index.html') {
 				// Eye horizontal data
 				switch (eyeHorizontalDelta(filteredLandmarks)) {
 					case ('left'):
-						eyesPosition['left'] += 1;
-						sessionStorage.setItem("eyesLeft", eyesPosition['left']);
+						horizontalEyesPosition['left'] += 1;
+						sessionStorage.setItem("eyesLeft", horizontalEyesPosition['left']);
 						break;
 					case ('center'):
-						eyesPosition['center'] += 1;
-						sessionStorage.setItem("eyesCenter", eyesPosition['center']);
+						horizontalEyesPosition['center'] += 1;
+						sessionStorage.setItem("eyesCenter", horizontalEyesPosition['center']);
 						console.log(sessionStorage.getItem("eyesCenter"))
 						break;
 					case ('right'):
-						eyesPosition['right'] += 1;
-						sessionStorage.setItem("eyesRight", eyesPosition['right']);
+						horizontalEyesPosition['right'] += 1;
+						sessionStorage.setItem("eyesRight", horizontalEyesPosition['right']);
 						break;
 				}
 
 				// Eye vertical data
-				switch (eyeVerticalDelta(filteredLandmarks)) {
-					case ('down'):
-						eyesPosition['down'] += 1;
-						sessionStorage.setItem("eyesDown", eyesPosition['down']);
-						break;
-					default: 
-						eyesPosition['up'] += 1;
-						sessionStorage.setItem("eyesUp", eyesPosition['up']);
-						break;
-				}
+				verticalEyesPositionsInTime.push(eyeVerticalDelta);
+				sessionStorage.setItem("verticalEyesPositionsInTime", verticalEyesPositionsInTime);
 
 				// arms crossed
 				armCrossed(filteredLandmarks);
@@ -180,10 +173,10 @@ if (window.location.pathname == '/clientjs/index.html') {
 		const leftEyeBaselineDelta = baselineLandmarks[indexToLocation.leftEyeOuter].y - filteredLandmarks[indexToLocation.leftEyeOuter].y;
 		const rightEyeBaselineDelta = baselineLandmarks[indexToLocation.rightEyeOuter].y - filteredLandmarks[indexToLocation.rightEyeOuter].y;
 
-		let headPosition = "up";
+		let headPosition = 1; // 1 = up
 		if (leftEyeBaselineDelta < -0.008 && rightEyeBaselineDelta < -0.008)
 			console.log("down");
-			headPosition = "down";
+			headPosition = -1; // -1 = down
 
 		return headPosition;
 	}
