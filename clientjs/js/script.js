@@ -14,16 +14,16 @@ if (window.location.pathname == '/clientjs/index.html') {
 	// Data variables
 	const landmarksToFilter = [3, 6, 7, 8, 11, 12, 13, 14, 15, 16] // Landmarks we want to extract each second
 	const indexToLocation = {
-		leftEyeOuter : 0,
-		rightEyeOuter : 1,
-		leftEar : 2,
-		rightEar : 3,
+		leftEyeOuter: 0,
+		rightEyeOuter: 1,
+		leftEar: 2,
+		rightEar: 3,
 		leftShoulder: 4,
 		rightShoulder: 5,
-		leftElbow : 6, 
-		rightElbow : 7, 
-		leftWrist : 8, 
-		rightWrist : 9, 
+		leftElbow: 6,
+		rightElbow: 7,
+		leftWrist: 8,
+		rightWrist: 9,
 	} // index position of the landmarks we want to extract in the above array
 	let elapsedTime = 0
 	let startedRecording = false
@@ -100,7 +100,7 @@ if (window.location.pathname == '/clientjs/index.html') {
 				}
 
 				// Eye vertical data
-				verticalEyesPositionsInTime.push(eyeVerticalDelta(filteredLandmarks));
+				verticalEyesPositionsInTime.push((eyeVerticalDelta(filteredLandmarks)));
 				sessionStorage.setItem("verticalEyesPositionsInTime", verticalEyesPositionsInTime);
 
 				// arms crossed
@@ -112,7 +112,7 @@ if (window.location.pathname == '/clientjs/index.html') {
 					gestures[gesture] += 1;
 					sessionStorage.setItem("uncrossed", gestures[gesture]);
 				}
-				
+
 
 				// posture
 				posture(filteredLandmarks);
@@ -122,10 +122,10 @@ if (window.location.pathname == '/clientjs/index.html') {
 
 	// Determine if arms are crossed
 	function posture(filteredLandmarks) {
-		const baselineShoulderWidthSquared = (baselineLandmarks[indexToLocation.leftShoulder].x - baselineLandmarks[indexToLocation.rightShoulder].x) ** 2 + 
+		const baselineShoulderWidthSquared = (baselineLandmarks[indexToLocation.leftShoulder].x - baselineLandmarks[indexToLocation.rightShoulder].x) ** 2 +
 			(baselineLandmarks[indexToLocation.leftShoulder].y - baselineLandmarks[indexToLocation.rightShoulder].y) ** 2 +
 			(baselineLandmarks[indexToLocation.leftShoulder].z - baselineLandmarks[indexToLocation.rightShoulder].z) ** 2;
-		const currentShoulderWidthSquared = (filteredLandmarks[indexToLocation.leftShoulder].x - filteredLandmarks[indexToLocation.rightShoulder].x) ** 2 + 
+		const currentShoulderWidthSquared = (filteredLandmarks[indexToLocation.leftShoulder].x - filteredLandmarks[indexToLocation.rightShoulder].x) ** 2 +
 			(filteredLandmarks[indexToLocation.leftShoulder].y - filteredLandmarks[indexToLocation.rightShoulder].y) ** 2 +
 			(filteredLandmarks[indexToLocation.leftShoulder].z - filteredLandmarks[indexToLocation.rightShoulder].z) ** 2;
 		// console.log("baselineShoulderWidthSquared");
@@ -136,16 +136,15 @@ if (window.location.pathname == '/clientjs/index.html') {
 
 	// Determine if arms are crossed
 	function armCrossed(filteredLandmarks) {
-		const radius = 0.03;
-		const leftElbowRightWristDist = (filteredLandmarks[indexToLocation.leftElbow].x - filteredLandmarks[indexToLocation.rightWrist].x) ** 2 + 
+		const leftElbowRightWristDist = (filteredLandmarks[indexToLocation.leftElbow].x - filteredLandmarks[indexToLocation.rightWrist].x) ** 2 +
 			(filteredLandmarks[indexToLocation.leftElbow].y - filteredLandmarks[indexToLocation.rightWrist].y) ** 2;
-		const rightElbowLeftWristDist = (filteredLandmarks[indexToLocation.rightElbow].x - filteredLandmarks[indexToLocation.leftWrist].x) ** 2 + 
+		const rightElbowLeftWristDist = (filteredLandmarks[indexToLocation.rightElbow].x - filteredLandmarks[indexToLocation.leftWrist].x) ** 2 +
 			(filteredLandmarks[indexToLocation.rightElbow].y - filteredLandmarks[indexToLocation.leftWrist].y) ** 2;
 
 		armPosition = "uncrossed"
 		if (leftElbowRightWristDist < radius || rightElbowLeftWristDist < radius)
 			armPosition = "crossed"
-			
+
 		return armPosition
 	}
 
@@ -176,8 +175,10 @@ if (window.location.pathname == '/clientjs/index.html') {
 		const rightEyeBaselineDelta = baselineLandmarks[indexToLocation.rightEyeOuter].y - filteredLandmarks[indexToLocation.rightEyeOuter].y;
 
 		let headPosition = 1; // 1 = up
-		if (leftEyeBaselineDelta < -0.008 && rightEyeBaselineDelta < -0.008)
+		if (leftEyeBaselineDelta < -0.008 && rightEyeBaselineDelta < -0.008) {
+			console.log("down");
 			headPosition = -1; // -1 = down
+		}
 
 		return headPosition;
 	}
@@ -252,36 +253,82 @@ else if (window.location.pathname == '/clientjs/pages/results1.html') {
 			}
 		}
 	});
-} else if (window.location.pathname == '/clientjs/pages/results2.html'){
+} else if (window.location.pathname == '/clientjs/pages/results2.html') {
 	const ctx2 = document.getElementById('chart2');
 
-		new Chart(ctx2, {
-			type: 'bar',
-			data: {
-				labels: ['Crossed', 'Uncrossed'],
-				datasets: [{
-					label: 'Time',
-					backgroundColor: [
-						'#731DD8',
-						'#FA8889'
-					],
-					data: [sessionStorage.getItem("crossed"), sessionStorage.getItem("uncrossed")],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					display: false
+	new Chart(ctx2, {
+		type: 'bar',
+		data: {
+			labels: ['Crossed', 'Gestures'],
+			datasets: [{
+				label: 'Percentage',
+				backgroundColor: [
+					'#731DD8',
+					'#FA8889'
+				],
+				data: [90, 10],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				display: false
 
+			},
+			plugins: {
+				legend: {
+					display: false
 				},
-				plugins: {
-					legend: {
-						display: false
-					},
-					customCanvasBackgroundColor: {
-						color: '#ede6f2',
-					}
+				customCanvasBackgroundColor: {
+					color: '#ede6f2',
 				}
 			}
-		});
+		}
+	});
 }
+else if (window.location.pathname == '/clientjs/pages/results3.html') {
+	const ctx3 = document.getElementById('chart3');
+	const chart3RunningTime = sessionStorage.getItem('verticalEyesPositionsInTime').split(',');
+	console.log(chart3RunningTime)
+	new Chart(ctx3, {
+		type: 'line',
+		data: {
+			labels: [...Array(chart3RunningTime.length).keys()],
+			//labels: [0, 1, 2, 3, 4, 5, 6],
+			datasets: [{
+				label: 'Head Position',
+				backgroundColor: [
+					'#731DD8'
+				],
+				data: chart3RunningTime,
+				//data: [-1, 1, 1, 1, -1, -1, 1],
+				borderWidth: 1,
+				fill: { above: '#FA8889', below: 'rgb(54, 162, 235)', target: { value: 0 } }
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					ticks: {
+						display: false //this will remove only the label
+					}
+				}
+			},
+			plugins: {
+				filler: {
+					propagate: false
+				},
+				legend: {
+					display: false
+				},
+				customCanvasBackgroundColor: {
+					color: '#ede6f2',
+				},
+				interaction: {
+					intersect: false,
+				},
+			}
+		}
+	});
+}
+

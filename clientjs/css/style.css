@@ -1,5 +1,6 @@
 html {
   background-color: #ede6f2;
+  overflow: hidden;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
@@ -102,7 +103,7 @@ h1 {
   border: 1px solid black;
   cursor: pointer;
   position: relative;
-  display:initial;
+  display: initial;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -146,7 +147,7 @@ h1 {
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
+  border-top: 16px solid #ff6663ba;
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
@@ -155,11 +156,35 @@ h1 {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.loader_remove{
+.loader_remove {
   display: none;
 }
 /* End of loader button*/
+
+/*logo*/
+
+.logo-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-family: "Roboto Mono", monospace;
+  color: #374a67;
+  font-size: 30px;
+}
+
+.logo {
+  padding-top: 9px;
+  padding-right: 12px;
+}
