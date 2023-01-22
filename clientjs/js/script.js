@@ -1,5 +1,5 @@
 // global variables
-let eyesPosition = { 'left': 0, 'center': 0, 'right': 0 };
+let eyesPosition = { 'left': 0, 'center': 0, 'right': 0 , 'up': 0, 'down': 0};
 
 if (window.location.pathname == '/clientjs/index.html') {
 	// Video display variables
@@ -81,12 +81,8 @@ if (window.location.pathname == '/clientjs/index.html') {
 				// Filter landmarks
 				const filteredLandmarks = landmarksToFilter.map(element => grid.landmarks[element]);
 
-				// Save data
-				currentData = {
-					eyeData: eyeDelta(filteredLandmarks)
-				}
-				console.log(currentData)
-				switch (currentData.eyeData.headPosition) {
+				// Eye horizontal data
+				switch (eyeHorizontalDelta(filteredLandmarks)) {
 					case ('left'):
 						eyesPosition['left'] += 1;
 						sessionStorage.setItem("eyesLeft", eyesPosition['left']);
@@ -101,12 +97,25 @@ if (window.location.pathname == '/clientjs/index.html') {
 						sessionStorage.setItem("eyesRight", eyesPosition['right']);
 						break;
 				}
-			}
-			// arms crossed
-			armCrossed(filteredLandmarks);
 
-			// posture
-			posture(filteredLandmarks);
+				// Eye vertical data
+				switch (eyeVerticalDelta(filteredLandmarks)) {
+					case ('down'):
+						eyesPosition['down'] += 1;
+						sessionStorage.setItem("eyesDown", eyesPosition['down']);
+						break;
+					default: 
+						eyesPosition['up'] += 1;
+						sessionStorage.setItem("eyesUp", eyesPosition['up']);
+						break;
+				}
+
+				// arms crossed
+				armCrossed(filteredLandmarks);
+
+				// posture
+				posture(filteredLandmarks);
+			}
 		}
 	}
 
@@ -146,8 +155,8 @@ if (window.location.pathname == '/clientjs/index.html') {
 	}
 
 
-	// Determine the eye position 
-	function eyeDelta(filteredLandmarks) {
+	// Determine the eye position horizontally
+	function eyeHorizontalDelta(filteredLandmarks) {
 		const leftEyeEarDelta = filteredLandmarks[indexToLocation.leftEar].x - filteredLandmarks[indexToLocation.leftEyeOuter].x;
 		const leftEyeEarBaselineDelta = baselineLandmarks[indexToLocation.leftEar].x - baselineLandmarks[indexToLocation.leftEyeOuter].x;
 		const rightEyeEarDelta = filteredLandmarks[indexToLocation.rightEyeOuter].x - filteredLandmarks[indexToLocation.rightEar].x;
@@ -163,7 +172,20 @@ if (window.location.pathname == '/clientjs/index.html') {
 			headPosition = "left";
 		}
 
-		return { headPosition: headPosition, leftEyeEarDelta: leftEyeEarDelta, rightEyeEarDelta: rightEyeEarDelta }
+		return headPosition;
+	}
+
+	// Determine the eye position vertically
+	function eyeVerticalDelta(filteredLandmarks) {
+		const leftEyeBaselineDelta = baselineLandmarks[indexToLocation.leftEyeOuter].y - filteredLandmarks[indexToLocation.leftEyeOuter].y;
+		const rightEyeBaselineDelta = baselineLandmarks[indexToLocation.rightEyeOuter].y - filteredLandmarks[indexToLocation.rightEyeOuter].y;
+
+		let headPosition = "up";
+		if (leftEyeBaselineDelta < -0.008 && rightEyeBaselineDelta < -0.008)
+			console.log("down");
+			headPosition = "down";
+
+		return headPosition;
 	}
 
 	// Function to handle logic onclick of start/stop button
