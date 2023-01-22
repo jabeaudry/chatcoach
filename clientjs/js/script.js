@@ -431,5 +431,150 @@ else if (window.location.pathname == '/clientjs/pages/results4.html') {
 	});
 }
 else if (window.location.pathname == '/clientjs/pages/results5.html') {
+	const ctx1 = document.getElementById('chart1');
+	new Chart(ctx1, {
+		type: 'doughnut',
+		data: {
+			labels: ['Left', 'Center', 'Right'],
+			datasets: [{
+				label: 'Seconds',
+				backgroundColor: [
+					'#FA8889',
+					'rgb(54, 162, 235)',
+					'#731DD8'
+				],
 
+				data: [sessionStorage.getItem("eyesLeft"), sessionStorage.getItem("eyesCenter"), sessionStorage.getItem("eyesRight")],
+				borderWidth: 1
+			}]
+		},
+		options: {
+
+			plugins: {
+				legend: {
+					display: false
+				},
+				customCanvasBackgroundColor: {
+					color: '#ede6f2',
+				}
+			}
+		}
+	});
+
+	const ctx2 = document.getElementById('chart2');
+	new Chart(ctx2, {
+		type: 'bar',
+		data: {
+			labels: ['Crossed', 'Uncrossed'],
+			datasets: [{
+				label: 'Seconds',
+				backgroundColor: [
+					'#731DD8',
+					'#FA8889'
+				],
+				data: [sessionStorage.getItem("crossed"), sessionStorage.getItem("uncrossed")],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				display: false
+
+			},
+			plugins: {
+				legend: {
+					display: false
+				},
+				customCanvasBackgroundColor: {
+					color: '#ede6f2',
+				}
+			}
+		}
+	});
+
+	const ctx3 = document.getElementById('chart3');
+	const chart3RunningTime = sessionStorage.getItem('verticalEyesPositionsInTime').split(',');
+	console.log(chart3RunningTime)
+	new Chart(ctx3, {
+		type: 'line',
+		data: {
+			labels: [...Array(chart3RunningTime.length).keys()],
+			//labels: [0, 1, 2, 3, 4, 5, 6],
+			datasets: [{
+				label: 'Head Position',
+				backgroundColor: [
+					'#731DD8'
+				],
+				data: chart3RunningTime,
+				//data: [-1, 1, 1, 1, -1, -1, 1],
+				borderWidth: 1,
+				fill: { above: '#FA8889', below: 'rgb(54, 162, 235)', target: { value: 0 } }
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					ticks: {
+						display: false //this will remove only the label
+					}
+				}
+			},
+			plugins: {
+				filler: {
+					propagate: false
+				},
+				legend: {
+					display: false
+				},
+				customCanvasBackgroundColor: {
+					color: '#ede6f2',
+				},
+				interaction: {
+					intersect: false,
+				},
+			}
+		}
+	});
+
+	const ctx4 = document.getElementById('chart4');
+	new Chart(ctx4, {
+		type: 'pie',
+		data: {
+			labels: ['Like', 'Everything'],
+			datasets: [{
+				label: 'Words',
+				backgroundColor: [
+					'#731DD8',
+					'#FA8889'
+				],
+				data: [sessionStorage.getItem('totalWords'), sessionStorage.getItem('likeWords')],
+				//data: [-1, 1, 1, 1, -1, -1, 1],
+				borderWidth: 1,
+
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+
+					display: false //this will remove only the label
+
+				}
+			},
+			plugins: {
+				filler: {
+					propagate: false
+				},
+				legend: {
+					display: false
+				},
+				customCanvasBackgroundColor: {
+					color: '#ede6f2',
+				},
+				interaction: {
+					intersect: false,
+				},
+			}
+		}
+	});
 }

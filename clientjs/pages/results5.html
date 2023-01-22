@@ -13,14 +13,32 @@
 <body>
 	<div class="result-container">
 		<div>
-			<h1 class="result-header result-text">Filler words happen every now and then.</h1>
-			<h1 class="result-header result-text-secondary">But out of <span style="color:#731DD8;">
-					everything</span> you say, "<span style="color:#FA8889">like</span>" shouldn't come up too much.
-			</h1>
+			<h1 class="result-header result-text">Here are your results!</h1>
 		</div>
-		<div class="chart5">
-			<canvas id="chart5"></canvas>
+
+		<div class="quad_container">
+			<div class="chart1_final quad">
+				Where you looked horizontaly
+				<canvas id="chart1"></canvas>
+			</div>
+
+			<div class="chart2 quad">
+				Where you placed your hands
+				<canvas id="chart2"></canvas>
+			</div>
+
+			<div class="chart3 quad">
+				Where you looked verticaly
+				<canva id="chart3"></canvas>
+			</div>
+
+			<div class="chart4 quad">
+				How often you said "like"
+				<canvas id="chart4"></canvas>
+			</div>
 		</div>
+
+
 		<div class="button-container">
 			<a href="./results4.html" style="text-decoration : none;">
 				<button type="button" class="slide">
@@ -28,10 +46,10 @@
 					<div>Previous</div>
 				</button>
 			</a>
-				<button type="button" class="slide" onclick="onRestart()">
-					<div>Restart</div>
-					<i class="icon-arrow-right"></i>
-				</button>
+			<button type="button" class="slide" onclick="onRestart()">
+				<div>Restart</div>
+				<i class="icon-arrow-right"></i>
+			</button>
 		</div>
 	</div>
 	<script type="text/javascript" , src="../js/script.js"></script>

@@ -34,6 +34,25 @@ html {
   font-size: 24px;
 }
 
+/*Final results*/
+
+.quad_container {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+}
+.quad {
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.chart1_final {
+  width: 245px;
+  margin: auto;
+  padding-top: 15px;
+}
+
 /*logo*/
 
 .logo-container {
