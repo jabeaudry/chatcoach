@@ -6,25 +6,70 @@
 	<link rel="stylesheet" href="../css/result.css">
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
-	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200,300&display=swap" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 	<div class="result-container">
-		<div class="logo-container">
-			<img class="logo" src="../img/logo3.png" width="70px">
-			<h1 class="logo-text">ChatCoach</h1>
+		<div>
+			<h1 class="result-header result-text">When talking, you should look<br>at your entire audience.</h1>
+			<h1 class="result-header result-text-secondary">You should equally look to the <span style="color:#731DD8;">
+					right</span>, the <span style="color:rgb(54, 162, 235);">center</span> and the <span
+					style="color:#FA8889">left</span>.
+			</h1>
 		</div>
-		<h1 class="result-header">Get a report based<br>on your presentation!</h1>
-		<a href="../index.html">
-			<button ref="../index.html" type="button" class="slide">
-				<div>Start</div>
-				<i class="icon-arrow-right"></i>
-			</button>
-		</a>
+		<div class="chart1">
+			<canvas id="chart1"></canvas>
+		</div>
+		<div class="button-container">
+			<a href="" style="text-decoration : none;">
+				<button type="button" class="slide">
+					<i class="icon-arrow-left"></i>
+					<div>Previous</div>
+				</button>
+			</a>
+			<a href="../results2.html" style="text-decoration : none;">
+				<button type="button" class="slide">
+					<div>Next</div>
+					<i class="icon-arrow-right"></i>
+				</button>
+			</a>
+		</div>
 	</div>
-	<script type="module">
+	<script>
+		const ctx1 = document.getElementById('chart1');
 
+		new Chart(ctx1, {
+			type: 'doughnut',
+			data: {
+				labels: ['Left', 'Center', 'Right'],
+				datasets: [{
+					label: 'Percentage',
+					backgroundColor: [
+						'#FA8889',
+						'rgb(54, 162, 235)',
+						'#731DD8'
+					],
+					data: [33, 33, 33],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					display: false
+
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					customCanvasBackgroundColor: {
+						color: '#ede6f2',
+					}
+				}
+			}
+		});
 	</script>
 </body>
 

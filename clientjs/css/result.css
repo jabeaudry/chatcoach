@@ -23,6 +23,17 @@ html {
   color: #374a67;
 }
 
+.result-header.result-text {
+  padding-top: 15px;
+  color: #374a67;
+  font-size: 30px;
+}
+
+.result-header.result-text-secondary {
+  color: #374a67;
+  font-size: 24px;
+}
+
 .logo-container {
   display: flex;
   width: 100%;
@@ -41,6 +52,13 @@ html {
 .logo {
   padding-top: 9px;
   padding-right: 12px;
+}
+
+/*charts*/
+.chart1 {
+  width: 180px;
+  margin: auto;
+  padding-top: 15px;
 }
 
 /*button*/
