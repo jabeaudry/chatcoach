@@ -4,7 +4,7 @@ const verticalEyesPositionsInTime = [];
 let gestures = { 'crossed': 0, 'uncrossed': 0 };
 
 //Reset session storage variables when restarting the process
-function onRestart(){
+function onRestart() {
 	sessionStorage.clear();
 	document.location.href = "./welcome.html";
 }
@@ -206,9 +206,9 @@ if (window.location.pathname == '/clientjs/index.html') {
 	const onResult = event => {
 		for (const res of event.results) {
 			for (const [key, value] of Object.entries(res)) {
-				console.log(value)
-				let temp = allWords.concat(" " + value.transcript);
-				allWords = temp;
+				let temp = ' ' + value.transcript;
+				allWords = allWords.concat(temp);
+				console.log(allWords);
 			}
 
 		}
@@ -327,12 +327,12 @@ else if (window.location.pathname == '/clientjs/pages/results1.html') {
 		},
 		options: {
 			scales: {
-				x:{
-					grid:{
+				x: {
+					grid: {
 						offset: true
 					}
 				},
-				y:{
+				y: {
 					beginAtZero: true
 				}
 
@@ -399,7 +399,7 @@ else if (window.location.pathname == '/clientjs/pages/results4.html') {
 	new Chart(ctx4, {
 		type: 'pie',
 		data: {
-			labels: ['Like', 'Everything'],
+			labels: ['Everything', 'Like'],
 			datasets: [{
 				label: 'Words',
 				backgroundColor: [
@@ -485,12 +485,12 @@ else if (window.location.pathname == '/clientjs/pages/results5.html') {
 		},
 		options: {
 			scales: {
-				x:{
-					grid:{
+				x: {
+					grid: {
 						offset: true
 					}
 				},
-				y:{
+				y: {
 					beginAtZero: true
 				}
 
@@ -554,7 +554,7 @@ else if (window.location.pathname == '/clientjs/pages/results5.html') {
 	new Chart(ctx4, {
 		type: 'pie',
 		data: {
-			labels: ['Like', 'Everything'],
+			labels: ['Everything', 'Like'],
 			datasets: [{
 				label: 'Words',
 				backgroundColor: [
