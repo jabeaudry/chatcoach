@@ -21,8 +21,16 @@
 	<div class="container">
 		<h1>Title</h1>
 		<video class="input_video"></video>
-		<div class="loader"></div>
+		<div class="loader", id="loader"></div>
 		<canvas class="output_canvas" width="680px" height="382.5px"></canvas>
+
+		<div class="container">
+			<button type="button" class="slide_before" id="slider">
+				<div>Start</div>
+				<i class="icon-arrow-right"></i>
+			</button>
+		</div>
+		
 		<div class="landmark-grid-container"></div>
 	</div>
 	<script type="module">
@@ -47,6 +55,9 @@
 				grid.updateLandmarks([]);
 				return;
 			}
+
+			document.getElementById("loader").className = "loader_remove";
+			document.getElementById("slider").className = "slide";
 
 			canvasCtx.save();
 			canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);

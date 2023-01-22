@@ -18,10 +18,13 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
+
 .output_canva {
   margin: auto;
+  position: absolute;
   z-index: 0;
 }
 .landmark-grid-container {
@@ -36,6 +39,59 @@ h1 {
   background-color: #ef476f;
 }
 
+/* Slide button styling */
+.slide {
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 30px 13px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.slide i {
+  opacity: 0;
+  font-size: 13px;
+  transition: 0.2s;
+  position: absolute;
+  right: 10px;
+  top: 21px;
+  transition: transform 1;
+}
+
+.slide div {
+  transition: transform 0.8s;
+}
+
+.slide:hover div {
+  transform: translateX(-6px);
+}
+
+.slide::after {
+  content: "";
+  background-color: #66f2d5;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+}
+
+.slide:hover i {
+  opacity: 1;
+  transform: translateX(-6px);
+}
+
+.slide_before {
+  display: none;
+}
+/* End of Slide Button  */
+
+/* Start of loader*/
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -44,10 +100,15 @@ h1 {
   height: 120px;
   animation: spin 2s linear infinite;
   position: absolute;
-  z-index: -1;
+  z-index: 0;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.loader_remove{
+  display: none;
+}
+/* End of loader button*/
