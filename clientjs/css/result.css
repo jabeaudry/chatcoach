@@ -43,12 +43,53 @@ html {
 }
 .quad {
   padding: 20px;
-  font-size: 30px;
+  font-size: 26px;
   text-align: center;
 }
 
 .chart1_final {
   width: 245px;
+  margin: auto;
+  padding-top: 15px;
+}
+
+.chart1 {
+  width: 180px;
+  margin: auto;
+  padding-top: 15px;
+}
+
+.chart2 {
+  width: 350px;
+  height: 350px;
+  margin: auto;
+  padding-top: 15px;
+}
+
+.chart3 {
+  width: 700px;
+  height: 250px;
+  margin: auto;
+  padding-top: 15px;
+}
+
+#chart3 {
+  width: 700px;
+  height: 250px;
+  margin: auto;
+  padding-top: 15px;
+}
+
+.chart4 {
+  width: 700px;
+  height: 250px;
+  margin: auto;
+  padding-top: 15px;
+}
+
+#chart4 {
+  width: 700px;
+  height: 250px;
   margin: auto;
   padding-top: 15px;
 }
