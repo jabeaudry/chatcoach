@@ -3,6 +3,11 @@ let horizontalEyesPosition = { 'left': 0, 'center': 0, 'right': 0 };
 const verticalEyesPositionsInTime = [];
 let gestures = { 'crossed': 0, 'uncrossed': 0 };
 
+//Reset session storage variables when restarting the process
+function onRestart(){
+	sessionStorage.clear();
+}
+
 if (window.location.pathname == '/clientjs/index.html') {
 	// Video display variables
 	const videoElement = document.getElementsByClassName('input_video')[0];
@@ -214,6 +219,7 @@ if (window.location.pathname == '/clientjs/index.html') {
 		if (startedRecording) {
 			//Green
 			listening = true;
+			document.location.href = "./pages/results1.html"
 			slider.className = "slide";
 			slider.innerHTML = "Start";
 			let temp = allWords.split(' ');
@@ -423,4 +429,6 @@ else if (window.location.pathname == '/clientjs/pages/results4.html') {
 		}
 	});
 }
+else if (window.location.pathname == '/clientjs/pages/results5.html') {
 
+}
