@@ -238,4 +238,36 @@ else if (window.location.pathname == '/clientjs/pages/results1.html') {
 			}
 		}
 	});
+} else if (window.location.pathname == '/clientjs/pages/results2.html'){
+	const ctx2 = document.getElementById('chart2');
+
+		new Chart(ctx2, {
+			type: 'bar',
+			data: {
+				labels: ['Crossed', 'Gestures'],
+				datasets: [{
+					label: 'Percentage',
+					backgroundColor: [
+						'#731DD8',
+						'#FA8889'
+					],
+					data: [90, 10],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					display: false
+
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					customCanvasBackgroundColor: {
+						color: '#ede6f2',
+					}
+				}
+			}
+		});
 }
