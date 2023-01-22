@@ -215,7 +215,7 @@ else if (window.location.pathname == '/clientjs/pages/results1.html') {
 		data: {
 			labels: ['Left', 'Center', 'Right'],
 			datasets: [{
-				label: 'Percentage',
+				label: 'Seconds',
 				backgroundColor: [
 					'#FA8889',
 					'rgb(54, 162, 235)',
