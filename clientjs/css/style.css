@@ -49,6 +49,7 @@ h1 {
   border: 1px solid black;
   cursor: pointer;
   position: relative;
+  display: initial;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -88,6 +89,56 @@ h1 {
 
 .slide_before {
   display: none;
+}
+/* End of Slide Button  */
+
+/* Slide2 button styling */
+.slide2 {
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 30px 13px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  display:initial;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.slide2 i {
+  opacity: 0;
+  font-size: 13px;
+  transition: 0.2s;
+  position: absolute;
+  display: initial;
+  right: 10px;
+  top: 21px;
+  transition: transform 1;
+}
+
+.slide2 div {
+  transition: transform 0.8s;
+}
+
+.slide2:hover div {
+  transform: translateX(-6px);
+}
+
+.slide2::after {
+  content: "";
+  background-color: #ef476f;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+}
+
+.slide2:hover i {
+  opacity: 1;
+  transform: translateX(-6px);
 }
 /* End of Slide Button  */
 

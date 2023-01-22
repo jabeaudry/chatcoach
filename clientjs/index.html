@@ -23,106 +23,17 @@
 		<video class="input_video"></video>
 		<div class="loader", id="loader"></div>
 		<canvas class="output_canvas" width="680px" height="382.5px"></canvas>
-
+		<div class="landmark-grid-container"></div>
 		<div class="container">
-			<button type="button" class="slide_before" id="slider">
-				<div>Start</div>
+			<button type="button" class="slide_before" id="slider" onclick="clickRecording()">
+				<div>
+					Start
+				</div>
 				<i class="icon-arrow-right"></i>
 			</button>
 		</div>
-		
-		<div class="landmark-grid-container"></div>
 	</div>
-	<script type="module">
-		const videoElement = document.getElementsByClassName('input_video')[0];
-		const canvasElement = document.getElementsByClassName('output_canvas')[0];
-		const canvasCtx = canvasElement.getContext('2d');
-		const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
-		const grid = new LandmarkGrid(landmarkContainer);
-
-
-		const landmarksToFilter = [3, 6, 7, 8] // Landmarks we want to extract each second
-		const indexToLocation = {
-			'left_eye_outer' : 0,
-			'right_eye_outer' : 1,
-			'left_ear' : 2,
-			'right_ear' : 3
-		} // index position of the landmarks we want to extract in the above array
-		let elapsedTime = 0
-
-		function onResults(results) {
-			if (!results.poseLandmarks) {
-				grid.updateLandmarks([]);
-				return;
-			}
-
-			document.getElementById("loader").className = "loader_remove";
-			document.getElementById("slider").className = "slide";
-
-			canvasCtx.save();
-			canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-			canvasCtx.drawImage(results.segmentationMask, 0, 0,
-				canvasElement.width, canvasElement.height);
-
-			// Only overwrite existing pixels.
-			canvasCtx.globalCompositeOperation = 'source-in';
-			canvasCtx.fillStyle = 'rgba(255,255,255,0)';
-			canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
-
-			// Only overwrite missing pixels.
-			canvasCtx.globalCompositeOperation = 'destination-atop';
-			canvasCtx.drawImage(
-				results.image, 0, 0, canvasElement.width, canvasElement.height);
-
-			canvasCtx.globalCompositeOperation = 'source-over';
-			drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-				{ color: 'rgba(237,230,242,0.7)', lineWidth: 3 });
-			drawLandmarks(canvasCtx, results.poseLandmarks,
-				{ color: 'rgba(237,230,242,0.4)', lineWidth: 1 });
-			canvasCtx.restore();
-			grid.updateLandmarks(results.poseWorldLandmarks);
-
-			// Each second, fetch relevant data for futur processing and visualisation
-			const currentRotation = Math.floor(grid.rotation)
-			if(currentRotation > elapsedTime) {
-				elapsedTime = currentRotation
-				
-				// Filter landmarks
-				const filteredLandmarks = landmarksToFilter.map(element => grid.landmarks[element])
-				const leftEyeEarDelta = filteredLandmarks[indexToLocation['left_ear']].x - filteredLandmarks[indexToLocation['left_eye_outer']].x
-				const rightEyeEarDelta = filteredLandmarks[indexToLocation['right_eye_outer']].x - filteredLandmarks[indexToLocation['right_ear']].x
-				if (leftEyeEarDelta < 0 ){
-					console.log("Head turned left")
-				} else if(rightEyeEarDelta < 0) {
-					console.log("Head turned right")
-				}
-			}
-		}
-
-		const pose = new Pose({
-			locateFile: (file) => {
-				return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
-			}
-		});
-		pose.setOptions({
-			modelComplexity: 1,
-			smoothLandmarks: true,
-			enableSegmentation: true,
-			smoothSegmentation: true,
-			minDetectionConfidence: 0.75,
-			minTrackingConfidence: 0.75
-		});
-		pose.onResults(onResults);
-
-		const camera = new Camera(videoElement, {
-			onFrame: async () => {
-				await pose.send({ image: videoElement });
-			},
-			width: 720,
-			height: 405
-		});
-		camera.start();
-	</script>
+	<script type="text/javascript", src="js/script.js"></script>
 </body>
 
 </html>
