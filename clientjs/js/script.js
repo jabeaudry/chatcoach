@@ -6,12 +6,18 @@ const landmarkContainer = document.getElementsByClassName('landmark-grid-contain
 const grid = new LandmarkGrid(landmarkContainer);
 
 // Data variables
-const landmarksToFilter = [3, 6, 7, 8] // Landmarks we want to extract each second
+const landmarksToFilter = [3, 6, 7, 8, 11, 12, 13, 14, 15, 16] // Landmarks we want to extract each second
 const indexToLocation = {
 	leftEyeOuter : 0,
 	rightEyeOuter : 1,
 	leftEar : 2,
-	rightEar : 3
+	rightEar : 3,
+	leftShoulder: 4,
+	rightShoulder: 5,
+	leftElbow : 6, 
+	rightElbow : 7, 
+	leftWrist : 8, 
+	rightWrist : 9, 
 } // index position of the landmarks we want to extract in the above array
 let elapsedTime = 0
 let startedRecording = false
@@ -75,15 +81,49 @@ function onResults(results) {
 				eyeData : eyeDelta(filteredLandmarks)
 			}
 			savedData.push(currentData);
+
+			// arms crossed
+			armCrossed(filteredLandmarks);
+
+			// posture
+			posture(filteredLandmarks);
 		}
 	}
 }
 
 // Determine if arms are crossed
+function posture(filteredLandmarks) {
+	const baselineShoulderWidthSquared = (baselineLandmarks[indexToLocation.leftShoulder].x - baselineLandmarks[indexToLocation.rightShoulder].x) ** 2 + 
+		(baselineLandmarks[indexToLocation.leftShoulder].y - baselineLandmarks[indexToLocation.rightShoulder].y) ** 2 +
+		(baselineLandmarks[indexToLocation.leftShoulder].z - baselineLandmarks[indexToLocation.rightShoulder].z) ** 2;
+	const currentShoulderWidthSquared = (filteredLandmarks[indexToLocation.leftShoulder].x - filteredLandmarks[indexToLocation.rightShoulder].x) ** 2 + 
+		(filteredLandmarks[indexToLocation.leftShoulder].y - filteredLandmarks[indexToLocation.rightShoulder].y) ** 2 +
+		(filteredLandmarks[indexToLocation.leftShoulder].z - filteredLandmarks[indexToLocation.rightShoulder].z) ** 2;
+	// console.log("baselineShoulderWidthSquared");
+	// console.log(baselineShoulderWidthSquared);
+	// console.log("currentShoulderWidthSquared");
+	// console.log(currentShoulderWidthSquared);
+}
+
+// Determine if arms are crossed
 function armCrossed(filteredLandmarks) {
-	const leftElbowWristDist = 0;
-	const rightElbowWristDist = 0;
-	
+	const leftElbowRightWristDist = (filteredLandmarks[indexToLocation.leftElbow].x - filteredLandmarks[indexToLocation.rightWrist].x) ** 2 + 
+		(filteredLandmarks[indexToLocation.leftElbow].y - filteredLandmarks[indexToLocation.rightWrist].y) ** 2;
+	const rightElbowLeftWristDist = (filteredLandmarks[indexToLocation.rightElbow].x - filteredLandmarks[indexToLocation.leftWrist].x) ** 2 + 
+		(filteredLandmarks[indexToLocation.rightElbow].y - filteredLandmarks[indexToLocation.leftWrist].y) ** 2;
+	// console.log("leftElbowRightWristDist")
+	// console.log(leftElbowRightWristDist)
+	// console.log("leftElbow visibility")
+	// console.log(filteredLandmarks[indexToLocation.leftElbow].visibility)
+	// console.log("rightWrist visibility")
+	// console.log(filteredLandmarks[indexToLocation.rightWrist].visibility)
+
+	// console.log("rightElbowRightWristDist")
+	// console.log(rightElbowLeftWristDist)
+	// console.log("rightElbow visibility")
+	// console.log(filteredLandmarks[indexToLocation.rightElbow].visibility)
+	// console.log("leftWrist visibility")
+	// console.log(filteredLandmarks[indexToLocation.leftWrist].visibility)
 }
 
 // Determine the eye position 
