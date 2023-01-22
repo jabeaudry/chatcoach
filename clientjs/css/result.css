@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap");
 
 html {
   background-color: #ede6f2;
@@ -8,18 +9,38 @@ html {
 
 .result-container {
   text-align: center;
-  font-size: 30px;
+  font-size: 23px;
   height: 94vh;
   margin: auto;
   display: flex;
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Work Sans", sans-serif;
   justify-content: center;
   align-items: space-around;
 }
 
 .result-header {
   color: #374a67;
+}
+
+.logo-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.logo-text {
+  font-family: "Roboto Mono", monospace;
+  color: #374a67;
+  font-size: 30px;
+}
+
+.logo {
+  padding-top: 9px;
+  padding-right: 12px;
 }
 
 /*button*/
@@ -118,7 +139,7 @@ button {
 
 .slide::after {
   content: "";
-  background-color: #66f2d5;
+  background-color: #ff6663ba;
   width: 100%;
   z-index: -1;
   position: absolute;
