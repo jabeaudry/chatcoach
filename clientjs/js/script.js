@@ -6,6 +6,7 @@ let gestures = { 'crossed': 0, 'uncrossed': 0 };
 //Reset session storage variables when restarting the process
 function onRestart(){
 	sessionStorage.clear();
+	document.location.href = "./welcome.html";
 }
 
 if (window.location.pathname == '/clientjs/index.html') {
@@ -313,9 +314,9 @@ else if (window.location.pathname == '/clientjs/pages/results1.html') {
 	new Chart(ctx2, {
 		type: 'bar',
 		data: {
-			labels: ['Crossed', 'Gestures'],
+			labels: ['Crossed', 'Uncrossed'],
 			datasets: [{
-				label: 'Percentage',
+				label: 'Seconds',
 				backgroundColor: [
 					'#731DD8',
 					'#FA8889'
