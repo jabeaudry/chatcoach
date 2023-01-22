@@ -31,6 +31,16 @@
 		const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
 		const grid = new LandmarkGrid(landmarkContainer);
 
+
+		const landmarksToFilter = [3, 6, 7, 8] // Landmarks we want to extract each second
+		const indexToLocation = {
+			'left_eye_outer' : 0,
+			'right_eye_outer' : 1,
+			'left_ear' : 2,
+			'right_ear' : 3
+		} // index position of the landmarks we want to extract in the above array
+		let elapsedTime = 0
+
 		function onResults(results) {
 			if (!results.poseLandmarks) {
 				grid.updateLandmarks([]);
@@ -59,7 +69,22 @@
 				{ color: 'rgba(237,230,242,0.4)', lineWidth: 1 });
 			canvasCtx.restore();
 			grid.updateLandmarks(results.poseWorldLandmarks);
-			console.log(grid)
+
+			// Each second, fetch relevant data for futur processing and visualisation
+			const currentRotation = Math.floor(grid.rotation)
+			if(currentRotation > elapsedTime) {
+				elapsedTime = currentRotation
+				
+				// Filter landmarks
+				const filteredLandmarks = landmarksToFilter.map(element => grid.landmarks[element])
+				const leftEyeEarDelta = filteredLandmarks[indexToLocation['left_ear']].x - filteredLandmarks[indexToLocation['left_eye_outer']].x
+				const rightEyeEarDelta = filteredLandmarks[indexToLocation['right_eye_outer']].x - filteredLandmarks[indexToLocation['right_ear']].x
+				if (leftEyeEarDelta < 0 ){
+					console.log("Head turned left")
+				} else if(rightEyeEarDelta < 0) {
+					console.log("Head turned right")
+				}
+			}
 		}
 
 		const pose = new Pose({
@@ -72,8 +97,8 @@
 			smoothLandmarks: true,
 			enableSegmentation: true,
 			smoothSegmentation: true,
-			minDetectionConfidence: 0.5,
-			minTrackingConfidence: 0.5
+			minDetectionConfidence: 0.75,
+			minTrackingConfidence: 0.75
 		});
 		pose.onResults(onResults);
 
