@@ -136,6 +136,7 @@ if (window.location.pathname == '/clientjs/index.html') {
 
 	// Determine if arms are crossed
 	function armCrossed(filteredLandmarks) {
+		const radius = 0.03;
 		const leftElbowRightWristDist = (filteredLandmarks[indexToLocation.leftElbow].x - filteredLandmarks[indexToLocation.rightWrist].x) ** 2 +
 			(filteredLandmarks[indexToLocation.leftElbow].y - filteredLandmarks[indexToLocation.rightWrist].y) ** 2;
 		const rightElbowLeftWristDist = (filteredLandmarks[indexToLocation.rightElbow].x - filteredLandmarks[indexToLocation.leftWrist].x) ** 2 +
@@ -190,6 +191,9 @@ if (window.location.pathname == '/clientjs/index.html') {
 			//Green
 			slider.className = "slide";
 			slider.innerHTML = "Start";
+			setTimeout(function () {
+				location.href = './pages/results1.html';
+			}, 1000);
 		} else {
 			//Red
 			slider.className = "slide2";
@@ -266,7 +270,7 @@ else if (window.location.pathname == '/clientjs/pages/results1.html') {
 					'#731DD8',
 					'#FA8889'
 				],
-				data: [90, 10],
+				data: [sessionStorage.getItem("crossed"), sessionStorage.getItem("uncrossed")],
 				borderWidth: 1
 			}]
 		},
