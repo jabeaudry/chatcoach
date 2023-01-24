@@ -17,7 +17,7 @@ ChatCoach is simple. Click on 'Start' and present in front of your camera. After
 
 ## Implementation
 
-**Front-end: Javascript, MediaPipe, Chart.js**  
+**Front-end: Javascript, MediaPipe, Chart.js, Web Speech API**  
 The app is located at `/client/`.
 
 
