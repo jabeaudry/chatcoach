@@ -5,7 +5,7 @@ Truth be told, we're not the best presenters... Sometimes we cross our arms duri
 <img width="500" alt="image" src="https://user-images.githubusercontent.com/56971054/213923405-a4ba3883-877a-429c-837d-52730c4d56a0.png">
   
 ## About the Project
-ChatCoach is a data visualization web application that relies on your camera to give you pointers on your presentation skills! Get instant feedback on your body language and speech!
+ChatCoach is a data visualization web application that relies on your camera and artificial intelligence to give you pointers on your presentation skills! Get instant feedback on your body language and speech!
   
 ## How It Works
 ChatCoach is simple. Click on 'Start' and present in front of your camera. After you're done, you'll be able to view stats and graphs based on all your skills. First, you'll get a ratio of the time you spent looking in all three directions: left, right and in the centre. You'll also know if you ever looked down at cue cards, or if you crossed your arms. Your audience wants your full attention and its through open body language and eye contact that you can achieve that. Finally, the application analyzes how often you use filler words so you don't have to. All the information is presented in separate graphs and then summarized on one page.
